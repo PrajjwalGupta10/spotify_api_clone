@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Song Search</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify Song Search</h1>
+        <form method="POST" action="/">
+            <input type="text" name="query" placeholder="Enter song or artist" value="{{ query }}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if songs %}
+            <h2>Search Results</h2>
+            <div class="songs">
+                {% for song in songs %}
+                    <div class="song">
+                        <h3>{{ song.name }}</h3>
+                        <p>Artist: {{ song.artists[0].name }}</p>
+                        <p>Album: {{ song.album.name }}</p>
+                        <!-- Spotify Embed -->
+                        <iframe src="https://open.spotify.com/embed/track/{{ song.id }}"
+                                width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media">
+                        </iframe>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
